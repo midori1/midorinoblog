@@ -1,0 +1,155 @@
+{% extends "miniblog/blog_note_base.html" %}
+
+{% block title %} midori's blog {% endblock %}
+
+{% block extra_head %}
+    {% load staticfiles %}
+    <!-- Custom styles for this template -->
+    <link href="{% static "miniblog/css/blog_note.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "miniblog/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "miniblog/font-awesome/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "miniblog/css/animate-animo.min.css" %}">
+    <link rel="stylesheet" href="{% static "miniblog/css/pace.css" %}">
+    <link rel="stylesheet" href="{% static "miniblog/css/prettify.css" %}">
+    <script src="{% static "miniblog/js/jquery.min.js" %}"></script>
+    <script src="{% static "miniblog/js/bootstrap.min.js" %}"></script>
+    <script src={% static "miniblog/js/jquery.nicescroll.min.js" %}></script>
+    <script src={% static "miniblog/js/animo.min.js" %}></script>
+    <script src={% static "miniblog/js/pagedown-extra/pagedown/Markdown.Converter.js" %}></script>
+    <script src={% static "miniblog/js/pagedown-extra/pagedown/Markdown.Sanitizer.js" %}></script>
+    <script src={% static "miniblog/js/pagedown-extra/Markdown.Extra.js" %}></script>
+    <script src={% static "miniblog/js/prettify.js" %}></script>
+    <script>
+      paceOptions = {
+        restartOnRequestAfter: true
+      };
+    </script>
+    <script src={% static "miniblog/js/pace.js" %}></script>
+    <script src={% static "miniblog/js/blog.js" %}></script>
+
+{% endblock %}   
+
+{% block body %}
+<body class="home-template pace-done">
+    <div class="container-fluid">
+        <div class="row">
+        {% block header %}
+            <div id="m-nav" class="col-xs-12 col-sm-4 col-md-4 col-lg-4 affix">
+                <div class="row m-nav-container">
+                        <div class="col-sm-3 col-md-3 animated fadeIn" id="m-sidebar" tabindex="5000" style="overflow: hidden; outline: none">
+                            <div class="m-sidebar-border"></div>
+                            <nav class="navbar navbar-default g-navbar-box" role="navigation">
+                                <div class="navbar-header logo-box">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false">
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                    </button>
+                                    <a href="{% url 'miniblog:blog_note' %}" class="logo-link" title="midori's blog.">midori</a>
+                                    <p class="logo-desc">Just for fun</p>
+                                </div>
+                                <div class="collapse navbar-collapse" id="m-navbar-collapse">
+                                    <ul class="nav navbar-nav navbar-left m-navbar">
+                                      {% for rootClass in root_classes %}
+                                        <li>
+                                          <a data-toggle="collapse" href="#collapse-{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse-{{ forloop.counter }}">{{ rootClass.name }}</a>
+                                        </li>
+                                        <div class="collapse m-class-collapse" id="collapse-{{ forloop.counter }}">
+                                          <ul>
+                                            {% for class in classes %}
+                                              {% if class.father == rootClass%}
+                                                <li>
+                                                  <a class="class-link" href="{% url 'miniblog:blog_note' %}?class={{ class.id }}">{{ class.name }}</a>
+                                                </li>
+                                              {% endif %}
+                                            {% endfor %}
+                                          </ul>
+                                        </div>
+                                      {% endfor %}
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-xs-12 col-sm-9 col-md-8" id="m-post-list" tabindex="5001" style="overflow: hidden">
+                          {% block article_list %}
+                            {% for article in articles %}
+                              <article id="m-list-post-{{ forloop.counter }}" class="post published animated fadeInLeft">
+                                <div class="post-warp">
+                                  <h2 class="post-title">
+                                    <a class="post-link" href="{% url 'miniblog:blog_note_show' article.id %}">{{ article.caption }}</a>
+                                  </h2>
+                                  <div class="post-content hidden-xs">
+                                    <p> {{ article.outline }}</p>
+                                  </div>
+                                  <div class="post-metadata hidden-xs">
+                                    <ul class="list-inline clearfix">
+                                      <li class="meta-date">
+                                        <i class="fa fa-calendar">
+                                          <span>{{ article.publish_time }}</span>
+                                        </i>
+                                      </li>
+                                      <li class="meta-tag">
+                                        {% for tag in article.tags.all %}
+                                          <small class="muted"> {{ tag }} </small>
+                                        {% endfor %}
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </article>
+                            {% endfor %}
+                            <nav>
+                              <ul class="pager">
+                                {% if articles.has_previous %}
+                                  {% if current_class == "all" %}
+                                    <li class="previous"><a id="m-previous" href="{% url 'miniblog:blog_note' %}?page={{ articles.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+                                  {% else %}
+                                    <li class="previous"><a id="m-previous" href="{% url 'miniblog:blog_note' %}?class={{ current_class }}&amp;page={{ articles.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+                                  {% endif %}
+                                {% endif %}
+                                {% if articles.has_next %}
+                                  {% if current_class == "all" %}
+                                    <li class="next"><a id="m-next" href="{% url 'miniblog:blog_note' %}?page={{ articles.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                                  {% else %}
+                                    <li class="next"><a id="m-next" href="{% url 'miniblog:blog_note' %}?class={{ current_class }}&amp;page={{ articles.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                                  {% endif %}
+                                {% endif %}
+                              </ul>
+                            </nav>
+                          {% endblock article_list %}
+                        </div>
+                </div>
+            </div>
+            
+            {% block menu %}
+            
+            {% endblock menu %}
+
+            {% block preview %}
+
+            {% endblock preview %}
+
+        {% endblock header %}
+        {% block content %}
+            <div id="m-post" class="col-xs-12 col-sm-8 col-sm-offset-4 col-md-8 col-md-offset-4 col-lg-8 col-lg-offset-4">
+              <div class="row">
+                <div class="col-lg-11 col-md-11 col-sm-12 m-post-container" style="height: auto;">
+                  <article id="post" class="post published" >
+                    {% block article %}
+                    {% endblock article %}
+                  </article>
+                  <div id="comment"></div>
+                  <p class="clearfix">
+                    <div class="pull-right" id="go-top">
+                      <i class="fa fa-arrow-circle-o-up"></i>
+                      返回顶部
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
+        {% endblock content %}
+        </div>
+    </div>
+</body>
+{% endblock body %}

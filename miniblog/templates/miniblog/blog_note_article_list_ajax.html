@@ -1,0 +1,44 @@
+{% for article in articles %}
+  <article id="m-list-post-{{ forloop.counter }}" class="post published" style="opacity: 0;">
+    <div class="post-warp">
+      <h2 class="post-title">
+        <a class="post-link" href="{% url 'miniblog:blog_note_show' article.id %}">{{ article.caption }}</a>
+      </h2>
+      <div class="post-content hidden-xs">
+        <p> {{ article.outline }}</p>
+      </div>
+      <div class="post-metadata hidden-xs">
+        <ul class="list-inline clearfix">
+          <li class="meta-date">
+            <i class="fa fa-calendar">
+              <span>{{ article.publish_time }}</span>
+            </i>
+          </li>
+          <li class="meta-tag">
+            {% for tag in article.tags.all %}
+              <small class="muted"> {{ tag }} </small>
+            {% endfor %}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </article>
+{% endfor %}
+<nav>
+  <ul class="pager">
+    {% if articles.has_previous %}
+      {% if current_class == "all" %}
+        <li class="previous"><a id="m-previous" href="{% url 'miniblog:blog_note' %}?page={{ articles.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+      {% else %}
+        <li class="previous"><a id="m-previous" href="{% url 'miniblog:blog_note' %}?class={{ current_class }}&amp;page={{ articles.previous_page_number }}"><span aria-hidden="true">&larr;</span> Older</a></li>
+      {% endif %}
+    {% endif %}
+    {% if articles.has_next %}
+      {% if current_class == "all" %}
+        <li class="next"><a id="m-next" href="{% url 'miniblog:blog_note' %}?page={{ articles.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      {% else %}
+        <li class="next"><a id="m-next" href="{% url 'miniblog:blog_note' %}?class={{ current_class }}&amp;page={{ articles.next_page_number }}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+      {% endif %}
+    {% endif %}
+  </ul>
+</nav>

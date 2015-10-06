@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings 
-import mistune
+
 # Create your views here.
 from miniblog.models import Article, Author, Tag, Classification, RootClassification
 from miniblog.forms import ArticleForm
@@ -113,7 +113,7 @@ def article_list(request):
 
 def article_show(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
-    article.content = mistune.markdown(article.content)
+    #article.content = mistune.markdown(article.content)
     return render(request, 'miniblog/article_show.html', {"article": article})
 
 def article_filter(request, tag_id = ''):

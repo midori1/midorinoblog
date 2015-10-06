@@ -58,8 +58,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'miniblog',
-    'duoshuo',
+    'miniblog'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -111,10 +110,6 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 SITE_ID = 1
-
-DUOSHUO_SECRET = 'secret'
-
-DUOSHUO_SHORT_NAME = 'midori'
 
 LOGGING = {
     'version': 1,

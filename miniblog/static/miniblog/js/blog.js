@@ -9,8 +9,13 @@
           highlighter: "prettify"
         });
 
+        var chopScriptTag = function (str) {
+          var index = str.lastIndexof('<script type="text/javascript">');
+          return str.substr(0, index-1);
+        }
         var convertMD2Html = function (content) {
           // body...
+          content = chopScriptTag(content);
           return converter.makeHtml(content);
         }
         // prettify the content

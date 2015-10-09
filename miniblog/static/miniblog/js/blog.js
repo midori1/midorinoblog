@@ -50,10 +50,10 @@
             duration: 0.6,keep: true});
         }
         // load the first article
-        $.get($(".post-link:first").attr("href"),function(data){
-          setArticleToPage(data);
-          callPrettify();
-        },'html');
+        // $.get($(".post-link:first").attr("href"),function(data){
+        //   setArticleToPage(data);
+        //   callPrettify();
+        // },'html');
 
         var artitle_ajax_load  = function(url) {
           $("#post").animo({animation: "fadeOutDown", duration: 0.6, keep: true},function() {

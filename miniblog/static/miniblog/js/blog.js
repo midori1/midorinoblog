@@ -14,12 +14,10 @@
           return str.substr(0, index-1);
         }
         var convertMD2Html = function (content) {
-          // body...
           return converter.makeHtml(content);
         }
         // prettify the content
         var callPrettify = function () {
-          // body...
           prettyPrint();
         }
 
@@ -28,18 +26,18 @@
           $("#m-post-list").niceScroll();
         }
         init_Scroll();
+
         //set the active class 
-        var set_active_class = function(){
+        (function set_active_class(){
           $(".m-class-collapse li").each(function(){
             $(this).click(function(event){
               $(".current-selected-class").removeClass("current-selected-class");
               $(this).addClass("current-selected-class");
             });
           });
-        }
-        set_active_class();
+        })();
 
-
+        // set the animation of the list
         $("#m-post-list > article").animo({animation: "fadeInLeft", duration: 0.4, keep: true});
 
         function setArticleToPage (data) {
@@ -49,11 +47,20 @@
           $("#post").animo({animation: "fadeInUp", 
             duration: 0.6,keep: true});
         }
+
+        (function convertContent () {
+            var container = $("#main-content");
+            container.html(convertMD2Html(container.text()));
+            $("#post").animo({animation: "fadeInUp", 
+              duration: 0.6,keep: true});
+            callPrettify();
+        })();
         // load the first article
         // $.get($(".post-link:first").attr("href"),function(data){
         //   setArticleToPage(data);
         //   callPrettify();
         // },'html');
+        
 
         var artitle_ajax_load  = function(url) {
           $("#post").animo({animation: "fadeOutDown", duration: 0.6, keep: true},function() {

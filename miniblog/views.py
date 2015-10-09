@@ -39,10 +39,12 @@ def blog_note_all(request):
     # not an ajax request should return the whole page
     else:
         classes_list = Classification.objects.all()
+        article = articles_list[0]
         rootClass_list = RootClassification.objects.all()
-        return render(request, 'miniblog/blog_note.html', {
+        return render(request, 'miniblog/blog_note_show.html', {
             "classes":classes_list, 
             "articles": articles_list,
+            "article": article,
             "current_class": "all",
             "root_classes": rootClass_list
         })
@@ -57,10 +59,12 @@ def blog_note_by_class(request, class_id):
                 {"articles": articles_list, "current_class": class_id})
         else:
             classes_list = Classification.objects.all()
-            return render(request, 'miniblog/blog_note.html', {
+            article = articles_list[0]
+            return render(request, 'miniblog/blog_note_show.html', {
                 "classes":classes_list, 
                 "articles": articles_list, 
                 "current_class": class_id, 
+                "article": article,
                 "root_classes": rootClass_list
             })
     # if no article or no class is found

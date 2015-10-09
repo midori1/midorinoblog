@@ -15,7 +15,6 @@
         }
         var convertMD2Html = function (content) {
           // body...
-          content = chopScriptTag(content);
           return converter.makeHtml(content);
         }
         // prettify the content

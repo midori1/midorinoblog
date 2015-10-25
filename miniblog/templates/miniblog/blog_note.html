@@ -5,6 +5,8 @@
 {% block extra_head %}
     {% load staticfiles %}
     <!-- Custom styles for this template -->
+    <script>var duoshuoQuery = {short_name:"midori"};</script>
+    <script src="http://static.duoshuo.com/embed.js"></script>
     <link href="{% static "miniblog/css/blog_note.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static "miniblog/css/bootstrap.min.css" %}">
     <link rel="stylesheet" href="{% static "miniblog/font-awesome/css/font-awesome.min.css" %}">
@@ -138,7 +140,7 @@
                     {% block article %}
                     {% endblock article %}
                   </article>
-                  <div id="comment"></div>
+                  <div id="comment-box"></div>
                   <p class="clearfix">
                     <div class="pull-right" id="go-top">
                       <i class="fa fa-arrow-circle-o-up"></i>

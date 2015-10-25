@@ -1,6 +1,13 @@
 // 先注册需要进行ajax的链接的点击函数，然后在执行ajax的函数中重新注册
     $(document).ready(
       function() { 
+
+        function displayComment(container) {
+          var el = document.getElementById("ds-thread");
+          DUOSHUO.EmbedThread(el);
+          container.html(el);
+        };
+
         // create a pagedown converter - regular and sanitized versions are both supported 
         var converter = new Markdown.Converter();
         // tell the converter to use Markdown Extra
@@ -44,6 +51,9 @@
           container=$("#post");
           // markdown to html
           container.html(convertMD2Html(data));
+          // update the comment after display the article
+          displayComment($("#comment-box"));
+
           $("#post").animo({animation: "fadeInUp", 
             duration: 0.6,keep: true});
         }
@@ -66,8 +76,8 @@
           $("#post").animo({animation: "fadeOutDown", duration: 0.6, keep: true},function() {
             //ajax get the article
             $.get(url,function(data){
-              setArticleToPage(data);
-              callPrettify();
+                setArticleToPage(data);
+                callPrettify();
               },'html');
           });
         }

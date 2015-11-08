@@ -235,6 +235,14 @@ a:focus {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+.blockquote blockquote {
+  border-left-width: 10px;
+  background-color: #f8f8f8;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 15px 20px;
+  font-size: 1.5rem;
+}
 #m-post .m-post-container {
   border-right: 1px solid #eee;
   -webkit-transition: all 400ms ease;
@@ -245,6 +253,14 @@ a:focus {
   margin: 2.14285714285714rem 0;
   opacity: 0;
   text-align: justify;
+}
+#m-post #post blockquote {
+  border-left-width: 10px;
+  background-color: #f8f8f8;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 15px 20px;
+  font-size: 1.5rem;
 }
 #m-post #post h1,
 #m-post #post h2,

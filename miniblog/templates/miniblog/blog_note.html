@@ -7,8 +7,9 @@
     <!-- Custom styles for this template -->
     <script>var duoshuoQuery = {short_name:"midori"};</script>
     <script src="http://static.duoshuo.com/embed.js"></script>
-    <link href="{% static "miniblog/css/blog_note.css" %}" rel="stylesheet">
+    <link rel="icon" href="{% static "miniblog/img/midori.ico" %}">
     <link rel="stylesheet" href="{% static "miniblog/css/bootstrap.min.css" %}">
+    <link href="{% static "miniblog/css/new_blog_note.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static "miniblog/font-awesome/css/font-awesome.min.css" %}">
     <link rel="stylesheet" href="{% static "miniblog/css/animate-animo.min.css" %}">
     <link rel="stylesheet" href="{% static "miniblog/css/pace.css" %}">
@@ -140,6 +141,7 @@
                     {% block article %}
                     {% endblock article %}
                   </article>
+                  <a id="comments"></a>
                   <div id="comment-box"></div>
                   <p class="clearfix">
                     <div class="pull-right" id="go-top">

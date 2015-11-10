@@ -279,6 +279,8 @@ a:focus {
 }
 #m-post #post h3 {
   font-size: 1.7em;
+  padding-bottom: 8px;
+  border-bottom: 1px dotted #ccc;
 }
 #m-post #post h4 {
   font-size: 1.25em;
